@@ -15,6 +15,24 @@ describe Admin::CategoriesController do
     get :index
     assert_response :redirect, :action => 'index'
   end
+  
+  describe "test_new" do
+    before(:each) do
+      get :new
+    end
+
+    it 'should render template new' do
+      assert_template 'new'
+    end
+
+  end
+
+  it "test create" do
+    post :new, :category => { name: 'new category ewkjr', keywords: 'something', permalink: 'ladida', description: 'hello world' }
+    assert_response :redirect, :action => 'index'
+    new_category = Category.find_by_name("new category ewkjr")
+    assert_not_nil new_category
+  end
 
   describe "test_edit" do
     before(:each) do
